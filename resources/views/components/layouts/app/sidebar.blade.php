@@ -6,7 +6,13 @@
                 'icon' => 'home',
                 'url' => route('dashboard'),
                 'current' => request()->routeIs('dashboard')
-            ]
+            ],
+            [
+                'name' => 'Categorias',
+                'icon' => 'funnel',
+                'url' => route('admin.categories.index'),
+                'current' => request()->routeIs('admin.categories'),
+            ],
         ]
     ];
 @endphp
@@ -14,6 +20,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
+        
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -147,5 +154,15 @@
         {{ $slot }}
 
         @fluxScripts
+     
+            @if (session('swal'))
+
+                <script>
+                    Swal.fire(@json(session('swal')));
+                    
+                </script>
+
+            @endif
+            
     </body>
 </html>
